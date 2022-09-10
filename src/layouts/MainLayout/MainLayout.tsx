@@ -4,7 +4,7 @@ import styles from './MainLayout.module.sass'
 
 const MainLayout: FC = () => {
   return (
-    <div>
+    <div className={styles.root}>
       <div className={styles.container}>
         Navigation
         <Outlet />

@@ -6,7 +6,6 @@ const MainLayout: FC = () => {
   return (
     <div className={styles.root}>
       <div className={styles.container}>
-        Navigation
         <Outlet />
       </div>
     </div>

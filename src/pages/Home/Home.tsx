@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { CurrentMain } from '../../components/CurrentMain'
+import { CurrentMainCard } from '../../components/CurrentMainCard'
 import { CurrentSecondaryCard } from '../../components/CurrentSecondaryCard'
 import { ForecastShort } from '../../components/ForecastShort'
 import styles from './Home.module.sass'
@@ -7,8 +7,8 @@ import styles from './Home.module.sass'
 const Home: FC = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.currentMain}>
-        <CurrentMain />
+      <div className={styles.currentMainCard}>
+        <CurrentMainCard />
       </div>
       <div>
         <CurrentSecondaryCard />

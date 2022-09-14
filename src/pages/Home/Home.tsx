@@ -11,13 +11,13 @@ const Home: FC = () => {
         <CurrentMainCard />
       </div>
       <div>
-        <CurrentSecondaryCard />
+        <CurrentSecondaryCard icon="umbrella" title="RainFall" value="3cm" />
       </div>
       <div>
-        <CurrentSecondaryCard />
+        <CurrentSecondaryCard icon="wind" title="Wind" value="19km/h" />
       </div>
       <div>
-        <CurrentSecondaryCard />
+        <CurrentSecondaryCard icon="humidity" title="Humidity" value="64%" />
       </div>
       <div className={styles.forecastShort}>
         <ForecastShort />

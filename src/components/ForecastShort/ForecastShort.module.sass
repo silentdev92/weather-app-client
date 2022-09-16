@@ -1,1 +1,54 @@
-
+.root
+    .nav
+        height: 36px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-bottom: 16px
+        .item
+            font-weight: 400
+            font-size: 16px
+            color: #D6996B
+            transition: color 0.3s linear
+        .left
+            display: flex
+            .item
+                cursor: pointer
+                &.active
+                    font-weight: 700
+                    color: #313341
+                    cursor: default
+                &:hover
+                    color: #313341
+                &:first-child
+                    margin-right: 24px
+        .right
+            display: flex
+            cursor: pointer
+            .icon
+                height: 18px
+                width: 18px
+                color: #D6996B
+                margin-left: 32px
+                transition: color 0.3s linear
+            &:hover
+                .item
+                    color: #313341
+                .icon
+                    color: #313341
+    .main
+        display: flex
+        flex-wrap: nowrap
+        overflow-x: auto
+        padding-bottom: 16px
+        &::-webkit-scrollbar
+            height: 6px
+        &::-webkit-scrollbar-thumb
+            background: #313341
+            border-radius: 8px
+        &::-webkit-scrollbar-track-piece
+            border-radius: 8px
+            background: #E2A272
+        .item
+            &:not(:last-child)
+                margin-right: 20px

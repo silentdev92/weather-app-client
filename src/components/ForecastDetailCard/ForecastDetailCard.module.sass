@@ -1,0 +1,52 @@
+.root
+    font-weight: 600
+    font-size: 14px
+    color: #303345
+    cursor: pointer
+    .main
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .right
+            display: flex
+            align-items: center
+            .temp
+                font-weight: 700
+            .icon
+                display: flex
+                justify-content: center
+                transition: all 0.3s linear
+                img
+                    height: 100%
+    .secondary
+        transition: height 0.3s linear
+        overflow: hidden
+        .content
+            padding: 22px 56px
+            display: flex
+            justify-content: space-between
+            transition: opacity 0.3s linear
+            .item
+                .icon
+                    margin-bottom: 16px
+                .value
+                    display: block
+                    text-align: center
+    &.short
+        .main
+            .icon
+                width: 70px
+                height: 48px
+        .secondary
+            height: 0
+            .content
+                opacity: 0
+    &.detail
+        .main
+            .icon
+                width: 80px
+                height: 60px
+        .secondary
+            height: 120px
+            .content
+                opacity: 1

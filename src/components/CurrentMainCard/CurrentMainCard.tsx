@@ -16,13 +16,15 @@ const CurrentMainCard: FC = () => {
           <span className={styles.date}>Tue, Jun 30</span>
         </div>
         <div className={styles.right}>
-          <div className={styles.icon}>
-            <img src={getWeatherIconUrl('02n')} alt="Weather Icon" />
-          </div>
-          <div className={styles.main}>
-            <span className={styles.temp}>19</span>
-            <span className={styles.desc}>Rainy</span>
-            <div className={styles.unit}>°C</div>
+          <div className={styles.content}>
+            <div className={styles.icon}>
+              <img src={getWeatherIconUrl('02n')} alt="Weather Icon" />
+            </div>
+            <div className={styles.main}>
+              <span className={styles.temp}>19</span>
+              <span className={styles.desc}>Rainy</span>
+              <div className={styles.unit}>°C</div>
+            </div>
           </div>
         </div>
       </div>

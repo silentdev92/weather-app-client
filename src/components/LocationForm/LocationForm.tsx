@@ -1,11 +1,11 @@
 import React from 'react'
 import { Button } from '../ui/Button'
-import styles from './SelectionCityForm.module.sass'
+import styles from './LocationForm.module.sass'
 
-const SelectionCityForm = () => {
+const LocationForm = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.title}>Select City</div>
+      <div className={styles.title}>Select Location</div>
       <div className={styles.select}>
         <input type="text" />
         <div className={styles.items}>
@@ -50,4 +50,4 @@ const SelectionCityForm = () => {
   )
 }
 
-export default SelectionCityForm
+export default LocationForm

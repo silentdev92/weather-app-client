@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
 import { Card } from '../ui/Card'
-import styles from './CurrentMainCard.module.sass'
+import styles from './CurrentPrimaryCard.module.sass'
 
-const CurrentMainCard: FC = () => {
+const CurrentPrimaryCard: FC = () => {
   return (
     <Card>
       <div className={styles.root}>
@@ -32,4 +32,4 @@ const CurrentMainCard: FC = () => {
   )
 }
 
-export default CurrentMainCard
+export default CurrentPrimaryCard

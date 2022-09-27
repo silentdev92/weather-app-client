@@ -1,5 +1,5 @@
 export interface LocationState {
-  current: LocationData
+  current: LocationData | null
   recent: LocationData[]
 }
 

@@ -6,7 +6,7 @@ import styles from './Welcome.module.sass'
 const Welcome: FC = () => {
   return (
     <Card>
-      <LocationForm />
+      <LocationForm onSubmit={(loc) => console.log(loc)} />
     </Card>
   )
 }

@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { LocationForm } from '../../components/LocationForm'
 import { Card } from '../../components/ui/Card'
 import { useAppDispatch } from '../../hooks/redux'
-import { setCurrentLocation } from '../../store/location/slice'
+import {
+  addToRecentLocations,
+  setCurrentLocation,
+} from '../../store/location/slice'
 import { LocationData } from '../../store/location/types'
 import styles from './Welcome.module.sass'
 
@@ -13,6 +16,7 @@ const Welcome: FC = () => {
 
   const selectLocationHandler = (location: LocationData) => {
     dispatch(setCurrentLocation(location))
+    dispatch(addToRecentLocations(location))
     const name = location.name.toLowerCase()
     navigate('/' + name)
   }

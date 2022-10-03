@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/debounce'
+import { useAppSelector } from '../../hooks/redux'
 import { useLazyGetLocationQuery } from '../../store/location/api'
+import { selectRecentLocations } from '../../store/location/selectors'
 import { LocationData } from '../../store/location/types'
 import { Button } from '../ui/Button'
 import styles from './LocationForm.module.sass'
@@ -16,8 +18,14 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
   const [dropdown, setDropdown] = useState<LocationData[]>([])
   const [selected, setSelected] = useState<LocationData | null>(null)
 
+  const recentLocations = useAppSelector(selectRecentLocations)
+
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
+  }
+
+  const clickHandler = () => {
+    if (!search.length) setDropdown(recentLocations)
   }
 
   const selectHandler = (location: LocationData) => {
@@ -39,7 +47,7 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
     useLazyGetLocationQuery()
 
   useEffect(() => {
-    if (!search.length) setDropdown([])
+    if (!search.length) setDropdown(recentLocations)
   }, [search])
 
   useEffect(() => {
@@ -53,13 +61,14 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
   }, [data])
 
   return (
-    <div className={styles.root}>
+    <form className={styles.root} onSubmit={submitHandler}>
       <div className={styles.title}>Select Location</div>
       <div className={styles.select}>
         <input
           type="text"
           value={search}
           onChange={changeHandler}
+          onClick={clickHandler}
           disabled={!!selected}
         />
         {!!selected && (
@@ -122,9 +131,9 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
         )}
       </div>
       <div className={styles.submit}>
-        <Button text="Submit" onClick={submitHandler} disabled={!selected} />
+        <Button text="Confirm" type="submit" disabled={!selected} />
       </div>
-    </div>
+    </form>
   )
 }
 

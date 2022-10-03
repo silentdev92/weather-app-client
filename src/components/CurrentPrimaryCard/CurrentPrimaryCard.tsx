@@ -21,9 +21,11 @@ const CurrentPrimaryCard: FC = () => {
               <img src={getWeatherIconUrl('02n')} alt="Weather Icon" />
             </div>
             <div className={styles.main}>
-              <span className={styles.temp}>19</span>
+              <span className={styles.temp}>
+                19
+                <span className={styles.unit}>°C</span>
+              </span>
               <span className={styles.desc}>Rainy</span>
-              <div className={styles.unit}>°C</div>
             </div>
           </div>
         </div>

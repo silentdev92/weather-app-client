@@ -3,20 +3,20 @@ export interface LocationState {
   recent: LocationData[]
 }
 
-export interface LocationResponse {
+export interface LocationData {
+  id: number
   name: string
   local_names: any
   lat: number
   lon: number
-  country: string
+  country: {
+    code: string
+    name: string
+  }
   state: string
 }
 
-export interface LocationData extends LocationResponse {
-  id: number
-}
-
-export interface getLocationQuery {
+export interface GetLocationQuery {
   q: string
   limit?: number
 }

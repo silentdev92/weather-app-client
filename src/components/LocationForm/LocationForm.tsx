@@ -22,7 +22,7 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
 
   const selectHandler = (location: LocationData) => {
     setSelected(location)
-    setSearch(`${location.name}, ${location.country}`)
+    setSearch(`${location.name}, ${location.country.name}`)
     setDropdown([])
   }
 
@@ -49,7 +49,7 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
   }, [debounced])
 
   useEffect(() => {
-    setDropdown(data)
+    setDropdown(data!)
   }, [data])
 
   return (
@@ -90,7 +90,7 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
                 }}
               >
                 <div className={styles.text}>
-                  {location.name}, {location.country}
+                  {location.name}, {location.country.name}
                 </div>
                 <div
                   className={styles.icon}

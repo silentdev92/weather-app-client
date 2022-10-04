@@ -1,11 +1,13 @@
 .root
     display: grid
     grid-template-columns: 3fr 2fr
-    grid-template-rows: repeat(4, auto)
+    grid-template-rows: repeat(5, auto)
     column-gap: 32px
     row-gap: 32px
     padding-top: 32px
-    .currentMainCard
+    .optionsCard
+        grid-column: span 2
+    .currentPrimaryCard
         grid-row: span 3
     .forecastShort
         grid-column: span 2

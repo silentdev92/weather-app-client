@@ -11,8 +11,8 @@ const weatherSlice = createSlice({
   reducers: {
     toggleUnits(state) {
       if (state.units === 'standard') state.units = 'metric'
-      if (state.units === 'metric') state.units = 'imperial'
-      if (state.units === 'imperial') state.units = 'standard'
+      else if (state.units === 'metric') state.units = 'imperial'
+      else if (state.units === 'imperial') state.units = 'standard'
     },
   },
 })

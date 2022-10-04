@@ -2,12 +2,16 @@ import React, { FC } from 'react'
 import { CurrentPrimaryCard } from '../../components/CurrentPrimaryCard'
 import { CurrentSecondaryCard } from '../../components/CurrentSecondaryCard'
 import { ForecastShort } from '../../components/ForecastShort'
+import { OptionsCard } from '../../components/OptionsCard'
 import styles from './Home.module.sass'
 
 const Home: FC = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.currentMainCard}>
+      <div className={styles.optionsCard}>
+        <OptionsCard />
+      </div>
+      <div className={styles.currentPrimaryCard}>
         <CurrentPrimaryCard />
       </div>
       <div>

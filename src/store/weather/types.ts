@@ -1,3 +1,7 @@
+export interface WeatherState {
+  units: 'standard' | 'metric' | 'imperial'
+}
+
 export interface CurrentWeatherData {
   coord: {
     lon: number

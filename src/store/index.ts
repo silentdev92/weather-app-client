@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import locationReducer from './location/slice'
+import weatherReducer from './weather/slice'
 import { locationApi } from './location/api'
 import { weatherApi } from './weather/api'
 import { getPreloadedState, localStorageMiddleware } from './middleware'
@@ -7,6 +8,7 @@ import { getPreloadedState, localStorageMiddleware } from './middleware'
 export const store = configureStore({
   reducer: {
     location: locationReducer,
+    weather: weatherReducer,
     [locationApi.reducerPath]: locationApi.reducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
   },

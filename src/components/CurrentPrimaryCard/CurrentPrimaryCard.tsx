@@ -1,31 +1,44 @@
 import React, { FC } from 'react'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
+import { LocationData } from '../../store/location/types'
+import { CurrentWeatherData } from '../../store/weather/types'
 import { Card } from '../ui/Card'
 import styles from './CurrentPrimaryCard.module.sass'
 
-const CurrentPrimaryCard: FC = () => {
+interface CurrentPrimaryCardProps {
+  location: LocationData
+  weather: CurrentWeatherData
+}
+
+const CurrentPrimaryCard: FC<CurrentPrimaryCardProps> = ({
+  location,
+  weather,
+}) => {
   return (
     <Card>
       <div className={styles.root}>
         <div className={styles.left}>
           <span className={styles.location}>
-            Stockholm,
+            {location.name},
             <br />
-            Sweden
+            {location.country.name}
           </span>
           <span className={styles.date}>Tue, Jun 30</span>
         </div>
         <div className={styles.right}>
           <div className={styles.content}>
             <div className={styles.icon}>
-              <img src={getWeatherIconUrl('02n')} alt="Weather Icon" />
+              <img
+                src={getWeatherIconUrl(weather.weather[0].icon)}
+                alt="Weather Icon"
+              />
             </div>
             <div className={styles.main}>
               <span className={styles.temp}>
-                19
+                {Math.round(weather.main.temp)}
                 <span className={styles.unit}>°C</span>
               </span>
-              <span className={styles.desc}>Rainy</span>
+              <span className={styles.desc}>{weather.weather[0].main}</span>
             </div>
           </div>
         </div>

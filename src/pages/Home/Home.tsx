@@ -13,7 +13,8 @@ const Home: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchCurrentWeather, { data }] = useLazyGetCurrentWeatherQuery()
+  const [fetchCurrentWeather, { data, isSuccess }] =
+    useLazyGetCurrentWeatherQuery()
 
   useEffect(() => {
     if (location) {
@@ -27,7 +28,9 @@ const Home: FC = () => {
         <OptionsCard />
       </div>
       <div className={styles.currentPrimaryCard}>
-        <CurrentPrimaryCard />
+        {isSuccess && (
+          <CurrentPrimaryCard location={location!} weather={data!} />
+        )}
       </div>
       <div>
         <CurrentSecondaryCard icon="umbrella" title="RainFall" value="3 cm" />

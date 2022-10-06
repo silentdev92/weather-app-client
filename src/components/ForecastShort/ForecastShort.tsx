@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ForecastShort.module.sass'
 import { ForecastSmallCard } from '../ForecastSmallCard'
@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks/redux'
 import { selectCurrentLocation } from '../../store/location/selectors'
 import { selectUnits } from '../../store/weather/selectors'
 import moment from 'moment'
+import { ForecastWeatherData } from '../../store/weather/types'
 
 let cx = classNames.bind(styles)
 
@@ -31,11 +32,20 @@ const ForecastShort: FC = () => {
     }
   }, [location, units])
 
-  const dt = moment(new Date(data?.list[0].dt! * 1000)).dayOfYear()
+  const forecastData = useMemo(() => {
+    const currentDay = moment(new Date()).dayOfYear()
+    const result = data?.list.filter((item: ForecastWeatherData['list'][0]) => {
+      const day = moment(new Date(item.dt * 1000)).dayOfYear()
+      if (forecastDay === 'today' && day === currentDay) return true
+      if (forecastDay === 'tomorrow' && day === currentDay + 1) return true
+    })
+    return result
+  }, [forecastDay, data])
+
+  console.log(forecastData)
 
   return (
     <div className={styles.root}>
-      <span>{dt}</span>
       <div className={styles.nav}>
         <div className={styles.left}>
           <span

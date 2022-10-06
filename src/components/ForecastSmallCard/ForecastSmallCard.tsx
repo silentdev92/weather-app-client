@@ -1,15 +1,23 @@
 import React, { FC } from 'react'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
+import { ForecastWeatherData } from '../../store/weather/types'
 import styles from './ForecastSmallCard.module.sass'
 
-const ForecastSmallCard: FC = () => {
+interface ForecastSmallCardProps {
+  weather: ForecastWeatherData['list'][0]
+}
+
+const ForecastSmallCard: FC<ForecastSmallCardProps> = ({ weather }) => {
   return (
     <div className={styles.root}>
-      <span className={styles.time}>now</span>
+      <span className={styles.time}>{weather.dt}</span>
       <div className={styles.icon}>
-        <img src={getWeatherIconUrl('02n')} alt="Weather Icon" />
+        <img
+          src={getWeatherIconUrl(weather.weather[0].icon)}
+          alt="Weather Icon"
+        />
       </div>
-      <span className={styles.temp}>19 °</span>
+      <span className={styles.temp}>{Math.round(weather.main.temp)} °C</span>
     </div>
   )
 }

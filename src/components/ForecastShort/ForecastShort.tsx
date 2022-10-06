@@ -42,8 +42,6 @@ const ForecastShort: FC = () => {
     return result
   }, [forecastDay, data])
 
-  console.log(forecastData)
-
   return (
     <div className={styles.root}>
       <div className={styles.nav}>
@@ -81,11 +79,12 @@ const ForecastShort: FC = () => {
         </div>
       </div>
       <div className={styles.main}>
-        {[...Array(20)].map((_, idx) => (
-          <div className={styles.item} key={idx}>
-            <ForecastSmallCard />
-          </div>
-        ))}
+        {isSuccess &&
+          forecastData?.map((item) => (
+            <div className={styles.item} key={item.dt}>
+              <ForecastSmallCard weather={item} />
+            </div>
+          ))}
       </div>
     </div>
   )

@@ -1,7 +1,12 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ForecastShort.module.sass'
 import { ForecastSmallCard } from '../ForecastSmallCard'
+import { useLazyGetForecastWeatherQuery } from '../../store/weather/api'
+import { useAppSelector } from '../../hooks/redux'
+import { selectCurrentLocation } from '../../store/location/selectors'
+import { selectUnits } from '../../store/weather/selectors'
+import moment from 'moment'
 
 let cx = classNames.bind(styles)
 
@@ -14,8 +19,23 @@ const ForecastShort: FC = () => {
     if (day !== forecastDay) setForecastDay(day)
   }
 
+  const location = useAppSelector(selectCurrentLocation)
+  const units = useAppSelector(selectUnits)
+
+  const [fetchForecastWeather, { data, isSuccess }] =
+    useLazyGetForecastWeatherQuery()
+
+  useEffect(() => {
+    if (location) {
+      fetchForecastWeather({ lat: location.lat, lon: location.lon, units })
+    }
+  }, [location, units])
+
+  const dt = moment(new Date(data?.list[0].dt! * 1000)).dayOfYear()
+
   return (
     <div className={styles.root}>
+      <span>{dt}</span>
       <div className={styles.nav}>
         <div className={styles.left}>
           <span

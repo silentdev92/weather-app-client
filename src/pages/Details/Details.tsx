@@ -40,11 +40,12 @@ const Details: FC = () => {
         <div className={styles.title}>Next 5 Days</div>
       </div>
       <div className={styles.main}>
-        {[...Array(16)].map((_, idx) => (
-          <div key={idx}>
-            <ForecastDetailCard />
-          </div>
-        ))}
+        {isSuccess &&
+          data?.list.map((item) => (
+            <div key={item.dt}>
+              <ForecastDetailCard weather={item} />
+            </div>
+          ))}
       </div>
     </div>
   )

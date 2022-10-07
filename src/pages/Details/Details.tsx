@@ -1,8 +1,24 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { ForecastDetailCard } from '../../components/ForecastDetailCard'
+import { useAppSelector } from '../../hooks/redux'
+import { selectCurrentLocation } from '../../store/location/selectors'
+import { useLazyGetForecastWeatherQuery } from '../../store/weather/api'
+import { selectUnits } from '../../store/weather/selectors'
 import styles from './Details.module.sass'
 
-const Detail: FC = () => {
+const Details: FC = () => {
+  const location = useAppSelector(selectCurrentLocation)
+  const units = useAppSelector(selectUnits)
+
+  const [fetchForecastWeather, { data, isSuccess }] =
+    useLazyGetForecastWeatherQuery()
+
+  useEffect(() => {
+    if (location) {
+      fetchForecastWeather({ lat: location.lat, lon: location.lon, units })
+    }
+  }, [location, units])
+
   return (
     <div className={styles.root}>
       <div className={styles.nav}>
@@ -34,4 +50,4 @@ const Detail: FC = () => {
   )
 }
 
-export default Detail
+export default Details

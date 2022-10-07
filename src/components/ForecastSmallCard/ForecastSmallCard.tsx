@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { getFormattedTime } from '../../helpers/dateTime'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
 import { ForecastWeatherData } from '../../store/weather/types'
 import styles from './ForecastSmallCard.module.sass'
@@ -10,7 +11,7 @@ interface ForecastSmallCardProps {
 const ForecastSmallCard: FC<ForecastSmallCardProps> = ({ weather }) => {
   return (
     <div className={styles.root}>
-      <span className={styles.time}>{weather.dt}</span>
+      <span className={styles.time}>{getFormattedTime(weather.dt)}</span>
       <div className={styles.icon}>
         <img
           src={getWeatherIconUrl(weather.weather[0].icon)}

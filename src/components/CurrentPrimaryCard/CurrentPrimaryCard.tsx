@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { getFormattedDate } from '../../helpers/dateTime'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
 import { LocationData } from '../../store/location/types'
 import { CurrentWeatherData } from '../../store/weather/types'
@@ -23,7 +24,7 @@ const CurrentPrimaryCard: FC<CurrentPrimaryCardProps> = ({
             <br />
             {location.country.name}
           </span>
-          <span className={styles.date}>Tue, Jun 30</span>
+          <span className={styles.date}>{getFormattedDate(weather.dt)}</span>
         </div>
         <div className={styles.right}>
           <div className={styles.content}>

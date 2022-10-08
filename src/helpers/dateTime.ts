@@ -9,5 +9,5 @@ export const getFormattedTime = (timestamp: number): string => {
 }
 
 export const getFormattedDateTime = (timestamp: number): string => {
-  return moment(new Date(timestamp * 1000)).format('ddd, MMM D, H:mm')
+  return moment(new Date(timestamp * 1000)).format('dddd, H:mm')
 }

@@ -32,6 +32,14 @@ export interface CurrentWeatherData {
   clouds: {
     all: number
   }
+  rain: {
+    '1h': number
+    '3h': number
+  }
+  snow: {
+    '1h': number
+    '3h': number
+  }
   dt: number
   sys: {
     type: number
@@ -82,6 +90,12 @@ export interface ForecastWeatherData {
       }
       visibility: number
       pop: number
+      rain: {
+        '3h': number
+      }
+      snow: {
+        '3h': number
+      }
       sys: {
         pod: string
       }

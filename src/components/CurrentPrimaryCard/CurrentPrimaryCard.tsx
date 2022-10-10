@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 import { getFormattedDate } from '../../helpers/dateTime'
 import { getWeatherIconUrl } from '../../helpers/getWeatherIconUrl'
+import { getTempUnits } from '../../helpers/units'
+import { useAppSelector } from '../../hooks/redux'
 import { LocationData } from '../../store/location/types'
+import { selectUnits } from '../../store/weather/selectors'
 import { CurrentWeatherData } from '../../store/weather/types'
 import { Card } from '../ui/Card'
 import styles from './CurrentPrimaryCard.module.sass'
@@ -15,6 +18,8 @@ const CurrentPrimaryCard: FC<CurrentPrimaryCardProps> = ({
   location,
   weather,
 }) => {
+  const units = useAppSelector(selectUnits)
+
   return (
     <Card>
       <div className={styles.root}>
@@ -37,7 +42,7 @@ const CurrentPrimaryCard: FC<CurrentPrimaryCardProps> = ({
             <div className={styles.main}>
               <span className={styles.temp}>
                 {Math.round(weather.main.temp)}
-                <span className={styles.unit}>°C</span>
+                <span className={styles.unit}>{getTempUnits(units)}</span>
               </span>
               <span className={styles.desc}>{weather.weather[0].main}</span>
             </div>

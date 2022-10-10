@@ -6,6 +6,9 @@ import styles from './ForecastDetailCard.module.sass'
 import { Icon } from '../ui/Icon'
 import { ForecastWeatherData } from '../../store/weather/types'
 import { getFormattedDateTime } from '../../helpers/dateTime'
+import { useAppSelector } from '../../hooks/redux'
+import { selectUnits } from '../../store/weather/selectors'
+import { getTempUnits } from '../../helpers/units'
 
 let cx = classNames.bind(styles)
 
@@ -16,6 +19,8 @@ interface ForecastDetailCardProps {
 }
 
 const ForecastDetailCard: FC<ForecastDetailCardProps> = ({ weather }) => {
+  const units = useAppSelector(selectUnits)
+
   const [display, setDisplay] = useState<Display>('short')
 
   const changeDisplay = () => {
@@ -30,7 +35,7 @@ const ForecastDetailCard: FC<ForecastDetailCardProps> = ({ weather }) => {
           <span>{getFormattedDateTime(weather.dt)}</span>
           <div className={styles.right}>
             <span className={styles.temp}>
-              {Math.round(weather.main.temp)} °C
+              {Math.round(weather.main.temp)} {getTempUnits(units)}
             </span>
             <div className={styles.icon}>
               <img

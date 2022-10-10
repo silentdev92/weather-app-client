@@ -3,6 +3,7 @@ import { CurrentPrimaryCard } from '../../components/CurrentPrimaryCard'
 import { CurrentSecondaryCard } from '../../components/CurrentSecondaryCard'
 import { ForecastShort } from '../../components/ForecastShort'
 import { OptionsCard } from '../../components/OptionsCard'
+import { getSpeedUnits } from '../../helpers/units'
 import { useAppSelector } from '../../hooks/redux'
 import { selectCurrentLocation } from '../../store/location/selectors'
 import { useLazyGetCurrentWeatherQuery } from '../../store/weather/api'
@@ -33,20 +34,24 @@ const Home: FC = () => {
         )}
       </div>
       <div>
-        <CurrentSecondaryCard icon="umbrella" title="RainFall" value="3 cm" />
+        <CurrentSecondaryCard
+          icon="umbrella"
+          title="RainFall"
+          value={(data?.rain ? data.rain['1h'] : '0') + ' mm'}
+        />
       </div>
       <div>
         <CurrentSecondaryCard
           icon="wind"
           title="Wind"
-          value={data?.wind.speed + 'm/s'}
+          value={data?.wind.speed + ' ' + getSpeedUnits(units)}
         />
       </div>
       <div>
         <CurrentSecondaryCard
           icon="humidity"
           title="Humidity"
-          value={data?.main.humidity + '%'}
+          value={data?.main.humidity + ' %'}
         />
       </div>
       <div className={styles.forecastShort}>

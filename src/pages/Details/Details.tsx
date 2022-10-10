@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { ForecastDetailCard } from '../../components/ForecastDetailCard'
 import { useAppSelector } from '../../hooks/redux'
+import { usePageNavigation } from '../../hooks/usePageNavigation'
 import { selectCurrentLocation } from '../../store/location/selectors'
 import { useLazyGetForecastWeatherQuery } from '../../store/weather/api'
 import { selectUnits } from '../../store/weather/selectors'
@@ -19,10 +20,12 @@ const Details: FC = () => {
     }
   }, [location, units])
 
+  const { navigateToHomePage } = usePageNavigation()
+
   return (
     <div className={styles.root}>
       <div className={styles.nav}>
-        <div className={styles.icon}>
+        <div className={styles.icon} onClick={() => navigateToHomePage()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

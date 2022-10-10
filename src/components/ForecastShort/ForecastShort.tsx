@@ -8,6 +8,7 @@ import { selectCurrentLocation } from '../../store/location/selectors'
 import { selectUnits } from '../../store/weather/selectors'
 import moment from 'moment'
 import { ForecastWeatherData } from '../../store/weather/types'
+import { usePageNavigation } from '../../hooks/usePageNavigation'
 
 let cx = classNames.bind(styles)
 
@@ -31,6 +32,8 @@ const ForecastShort: FC = () => {
       fetchForecastWeather({ lat: location.lat, lon: location.lon, units })
     }
   }, [location, units])
+
+  const { navigateToDetailPage } = usePageNavigation()
 
   const forecastData = useMemo(() => {
     const currentDay = moment(new Date()).dayOfYear()
@@ -59,7 +62,7 @@ const ForecastShort: FC = () => {
             Tomorrow
           </span>
         </div>
-        <div className={styles.right}>
+        <div className={styles.right} onClick={() => navigateToDetailPage()}>
           <span className={styles.item}>Next 5 Days</span>
           <div className={styles.icon}>
             <svg

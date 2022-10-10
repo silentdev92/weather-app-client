@@ -8,7 +8,7 @@ import { ForecastWeatherData } from '../../store/weather/types'
 import { getFormattedDateTime } from '../../helpers/dateTime'
 import { useAppSelector } from '../../hooks/redux'
 import { selectUnits } from '../../store/weather/selectors'
-import { getTempUnits } from '../../helpers/units'
+import { getSpeedUnits, getTempUnits } from '../../helpers/units'
 
 let cx = classNames.bind(styles)
 
@@ -51,13 +51,17 @@ const ForecastDetailCard: FC<ForecastDetailCardProps> = ({ weather }) => {
               <div className={styles.icon}>
                 <Icon img="umbrella" />
               </div>
-              <span className={styles.value}>1 cm</span>
+              <span className={styles.value}>
+                {(weather.rain ? weather.rain['3h'] : '0') + ' mm'}
+              </span>
             </div>
             <div className={styles.item}>
               <div className={styles.icon}>
                 <Icon img="wind" />
               </div>
-              <span className={styles.value}>{weather.wind.speed} m/s</span>
+              <span className={styles.value}>
+                {weather.wind.speed} {getSpeedUnits(units)}
+              </span>
             </div>
             <div className={styles.item}>
               <div className={styles.icon}>

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react'
-import { useDebounce } from '../../hooks/debounce'
+import { useDebounce } from '../../hooks/useDebounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useLazyGetLocationQuery } from '../../store/location/api'
 import { selectRecentLocations } from '../../store/location/selectors'

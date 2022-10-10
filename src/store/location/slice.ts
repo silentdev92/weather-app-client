@@ -14,11 +14,15 @@ const locationSlice = createSlice({
       state.current = action.payload
     },
     addToRecentLocations(state, action: PayloadAction<LocationData>) {
-      if (state.recent.length >= 5) state.recent.pop()
-      state.recent.unshift(action.payload)
+      const isRecent = state.recent.find((loc) => loc.id === action.payload.id)
+      if (!isRecent) {
+        if (state.recent.length >= 5) state.recent.pop()
+        state.recent.unshift(action.payload)
+      }
     },
     removeRecentLocation(state, action: PayloadAction<number>) {
       state.recent = state.recent.filter((loc) => loc.id !== action.payload)
+      if (state.current?.id === action.payload) state.current = null
     },
   },
 })

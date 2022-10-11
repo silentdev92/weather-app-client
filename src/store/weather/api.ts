@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   CurrentWeatherData,
   ForecastWeatherData,
-  getCurrentWeatherQuery,
-  getForecastWeatherQuery,
+  GetCurrentWeatherQuery,
+  GetForecastWeatherQuery,
 } from './types'
 
 const baseUrl = import.meta.env.VITE_BASE_API_URL
@@ -14,9 +14,9 @@ export const weatherApi = createApi({
   endpoints: (builder) => ({
     getCurrentWeather: builder.query<
       CurrentWeatherData,
-      getCurrentWeatherQuery
+      GetCurrentWeatherQuery
     >({
-      query: (query: getCurrentWeatherQuery) => ({
+      query: (query: GetCurrentWeatherQuery) => ({
         url: '/current',
         params: {
           ...query,
@@ -25,9 +25,9 @@ export const weatherApi = createApi({
     }),
     getForecastWeather: builder.query<
       ForecastWeatherData,
-      getForecastWeatherQuery
+      GetForecastWeatherQuery
     >({
-      query: (query: getForecastWeatherQuery) => ({
+      query: (query: GetForecastWeatherQuery) => ({
         url: '/forecast',
         params: {
           ...query,

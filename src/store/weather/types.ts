@@ -117,7 +117,7 @@ export interface ForecastWeatherData {
   }
 }
 
-export interface getCurrentWeatherQuery {
+export interface GetCurrentWeatherQuery {
   lat: number
   lon: number
   mode?: 'xml' | 'html'
@@ -125,6 +125,6 @@ export interface getCurrentWeatherQuery {
   lang?: string
 }
 
-export interface getForecastWeatherQuery extends getCurrentWeatherQuery {
+export interface GetForecastWeatherQuery extends GetCurrentWeatherQuery {
   cnt?: number
 }

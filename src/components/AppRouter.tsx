@@ -5,6 +5,7 @@ import { MainLayout } from '../layouts/MainLayout'
 import { Welcome } from '../pages/Welcome'
 import { Home } from '../pages/Home'
 import { Details } from '../pages/Details'
+import NotFound from '../pages/NotFound'
 
 const AppRouter: FC = () => {
   return (
@@ -12,9 +13,10 @@ const AppRouter: FC = () => {
       <Route path="/" element={<EmptyLayout />}>
         <Route index element={<Welcome />} />
       </Route>
-      <Route path=":city" element={<MainLayout />}>
+      <Route path=":location" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="details" element={<Details />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )

@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { LocationForm } from '../../components/LocationForm'
 import { Card } from '../../components/ui/Card'
-import { useAppDispatch } from '../../hooks/redux'
-import { usePageNavigation } from '../../hooks/usePageNavigation'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { selectCurrentLocation } from '../../store/location/selectors'
 import {
   addToRecentLocations,
   setCurrentLocation,
@@ -12,13 +13,20 @@ import styles from './Welcome.module.sass'
 
 const Welcome: FC = () => {
   const dispatch = useAppDispatch()
-  const { navigateToHomePage } = usePageNavigation()
+  const navigate = useNavigate()
+  const location = useAppSelector(selectCurrentLocation)
 
   const selectLocationHandler = (location: LocationData) => {
     dispatch(setCurrentLocation(location))
     dispatch(addToRecentLocations(location))
-    navigateToHomePage()
+    navigate('/' + location.name.toLowerCase())
   }
+
+  useEffect(() => {
+    if (location) {
+      navigate('/' + location.name.toLowerCase())
+    }
+  }, [location])
 
   return (
     <Card>

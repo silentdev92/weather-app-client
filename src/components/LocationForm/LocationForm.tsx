@@ -2,11 +2,15 @@ import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useLazyGetLocationQuery } from '../../store/location/api'
-import { selectRecentLocations } from '../../store/location/selectors'
+import {
+  selectCurrentLocation,
+  selectRecentLocations,
+} from '../../store/location/selectors'
 import { removeRecentLocation } from '../../store/location/slice'
 import { LocationData } from '../../store/location/types'
 import { Button } from '../ui/Button'
 import styles from './LocationForm.module.sass'
+import { usePageNavigation } from '../../hooks/usePageNavigation'
 
 interface LocationFormProps {
   onSubmit: (data: LocationData) => void
@@ -47,8 +51,12 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
     setSearch('')
   }
 
+  const location = useAppSelector(selectCurrentLocation)
+  const { navigateToWelcomePage } = usePageNavigation()
+
   const removeHandler = (e: MouseEvent<HTMLDivElement>, id: number) => {
     e.stopPropagation()
+    if (location?.id === id) navigateToWelcomePage()
     dispatch(removeRecentLocation(id))
   }
 

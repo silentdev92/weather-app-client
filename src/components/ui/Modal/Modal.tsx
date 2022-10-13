@@ -14,8 +14,8 @@ const Modal: FC<ModalProps> = ({ children, show, onClose }) => {
   return (
     <>
       {show && (
-        <div className={styles.root}>
-          <div className={styles.main}>
+        <div className={styles.root} onClick={closeHandler}>
+          <div className={styles.main} onClick={(e) => e.stopPropagation()}>
             <Card>
               <div className={styles.icon} onClick={closeHandler}>
                 <svg

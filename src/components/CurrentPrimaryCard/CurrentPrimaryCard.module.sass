@@ -1,3 +1,4 @@
+@use '../../styles/_variables' as var
 @use '../../styles/_mixins' as mixin
 
 .root
@@ -11,13 +12,13 @@
             display: block
             font-weight: 500
             font-size: 40px
-            color: #313341
+            color: var.$primary-color
             margin-bottom: 12px
         .date
             display: block
             font-weight: 400
             font-size: 18px
-            color: #9A938C
+            color: var.$secondary-color
     .right
         display: flex
         justify-content: center
@@ -43,7 +44,7 @@
                 flex-direction: column
                 justify-content: center
                 align-items: center
-                color: #303345
+                color: var.$primary-color
                 @include mixin.mobile
                     margin-bottom: 20px
                 .temp

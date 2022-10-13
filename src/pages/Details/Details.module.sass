@@ -1,3 +1,4 @@
+@use '../../styles/_variables' as var
 @use '../../styles/_mixins' as mixin
 
 .root
@@ -10,16 +11,16 @@
             width: 36px
             height: 36px
             cursor: pointer
-            color: #D6996B
+            color: var.$secondary-color
             transition: color 0.3s linear
             &:hover
-                color: #313341
+                color: var.$primary-color
         .title
             flex-grow: 1
             text-align: center
             font-weight: 400
             font-size: 22px
-            color: #313341
+            color: var.$primary-color
             padding-right: 36px
     .main
         display: grid

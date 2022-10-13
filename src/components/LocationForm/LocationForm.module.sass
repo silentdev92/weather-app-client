@@ -1,7 +1,9 @@
+@use '../../styles/_variables' as var
+
 .root
     display: flex
     flex-direction: column
-    color: #313341
+    color: var.$primary-color
     width: 350px
     .title
         margin-bottom: 16px
@@ -17,7 +19,7 @@
         input
             width: 100%
             background: rgba(255, 255, 255, 0.36)
-            border: 1px solid #313341
+            border: 1px solid var.$primary-color
             border-radius: 16px
             padding: 12px 18px
             font-weight: 400
@@ -26,13 +28,13 @@
             width: 26px
             height: 26px
             cursor: pointer
-            color: #D6996B
+            color: var.$secondary-color
             transition: color 0.3s linear
             position: absolute
             top: 17px
             right: 17px
             &:hover
-                color: #313341
+                color: var.$primary-color
         .dropdown
             padding-top: 8px
             .item
@@ -50,7 +52,7 @@
                     margin-bottom: 8px
                 &:hover
                     background: rgba(255, 255, 255, 0.6)
-                    border: 1px solid #313341
+                    border: 1px solid var.$primary-color
                     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08)
                 .text
                     font-weight: 400
@@ -59,13 +61,13 @@
                     width: 26px
                     height: 26px
                     cursor: pointer
-                    color: #D6996B
+                    color: var.$secondary-color
                     transition: color 0.3s linear
                     position: absolute
                     top: 9px
                     right: 9px
                     &:hover
-                        color: #313341
+                        color: var.$primary-color
         .loader
             height: 52px
             padding-top: 8px

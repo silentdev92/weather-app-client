@@ -1,3 +1,4 @@
+@use '../../styles/_variables' as var
 @use '../../styles/_mixins' as mixin
 
 .root
@@ -12,7 +13,7 @@
         .item
             font-weight: 400
             font-size: 16px
-            color: #D6996B
+            color: var.$secondary-color
             transition: color 0.3s linear
         .left
             display: flex
@@ -20,10 +21,10 @@
                 cursor: pointer
                 &.active
                     font-weight: 700
-                    color: #313341
+                    color: var.$primary-color
                     cursor: default
                 &:hover
-                    color: #313341
+                    color: var.$primary-color
                 &:first-child
                     margin-right: 24px
         .right
@@ -32,14 +33,14 @@
             .icon
                 height: 18px
                 width: 18px
-                color: #D6996B
+                color: var.$secondary-color
                 margin-left: 32px
                 transition: color 0.3s linear
             &:hover
                 .item
-                    color: #313341
+                    color: var.$primary-color
                 .icon
-                    color: #313341
+                    color: var.$primary-color
     .main
         display: flex
         flex-wrap: nowrap
@@ -48,11 +49,11 @@
         &::-webkit-scrollbar
             height: 6px
         &::-webkit-scrollbar-thumb
-            background: #313341
+            background: var.$primary-color
             border-radius: 8px
         &::-webkit-scrollbar-track-piece
             border-radius: 8px
-            background: #E2A272
+            background: var.$secondary-color
         .item
             &:not(:last-child)
                 margin-right: 20px

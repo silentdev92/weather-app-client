@@ -1,6 +1,8 @@
 import React, { FC, useEffect } from 'react'
 import { CurrentPrimaryCard } from '../../components/CurrentPrimaryCard'
+import CurrentPrimaryCardSkeleton from '../../components/CurrentPrimaryCard/Skeleton'
 import { CurrentSecondaryCard } from '../../components/CurrentSecondaryCard'
+import CurrentSecondaryCardSkeleton from '../../components/CurrentSecondaryCard/Skeleton'
 import { ForecastShort } from '../../components/ForecastShort'
 import { OptionsCard } from '../../components/OptionsCard'
 import { getSpeedUnits } from '../../helpers/units'
@@ -14,7 +16,7 @@ const Home: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchCurrentWeather, { data, isSuccess }] =
+  const [fetchCurrentWeather, { data, isSuccess, isLoading, isFetching }] =
     useLazyGetCurrentWeatherQuery()
 
   useEffect(() => {
@@ -29,31 +31,49 @@ const Home: FC = () => {
         <OptionsCard />
       </div>
       <div className={styles.currentPrimaryCard}>
-        {isSuccess && (
-          <CurrentPrimaryCard location={location!} weather={data!} />
+        {isLoading || isFetching ? (
+          <CurrentPrimaryCardSkeleton />
+        ) : (
+          isSuccess && (
+            <CurrentPrimaryCard location={location!} weather={data!} />
+          )
         )}
       </div>
-      <div>
-        <CurrentSecondaryCard
-          icon="umbrella"
-          title="RainFall"
-          value={(data?.rain ? data.rain['1h'] : '0') + ' mm'}
-        />
-      </div>
-      <div>
-        <CurrentSecondaryCard
-          icon="wind"
-          title="Wind"
-          value={data?.wind.speed + ' ' + getSpeedUnits(units)}
-        />
-      </div>
-      <div>
-        <CurrentSecondaryCard
-          icon="humidity"
-          title="Humidity"
-          value={data?.main.humidity + ' %'}
-        />
-      </div>
+      {isLoading || isFetching ? (
+        <>
+          {[...Array(3)].map((_, idx) => (
+            <div key={idx}>
+              <CurrentSecondaryCardSkeleton />
+            </div>
+          ))}
+        </>
+      ) : (
+        isSuccess && (
+          <>
+            <div>
+              <CurrentSecondaryCard
+                icon="umbrella"
+                title="RainFall"
+                value={(data?.rain ? data.rain['1h'] : '0') + ' mm'}
+              />
+            </div>
+            <div>
+              <CurrentSecondaryCard
+                icon="wind"
+                title="Wind"
+                value={data?.wind.speed + ' ' + getSpeedUnits(units)}
+              />
+            </div>
+            <div>
+              <CurrentSecondaryCard
+                icon="humidity"
+                title="Humidity"
+                value={data?.main.humidity + ' %'}
+              />
+            </div>
+          </>
+        )
+      )}
       <div className={styles.forecastShort}>
         <ForecastShort />
       </div>

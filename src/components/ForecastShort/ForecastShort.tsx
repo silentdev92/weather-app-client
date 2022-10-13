@@ -9,6 +9,7 @@ import { selectUnits } from '../../store/weather/selectors'
 import moment from 'moment'
 import { ForecastWeatherData } from '../../store/weather/types'
 import { usePageNavigation } from '../../hooks/usePageNavigation'
+import ForecastSmallCardSkeleton from '../ForecastSmallCard/Skeleton'
 
 let cx = classNames.bind(styles)
 
@@ -24,7 +25,7 @@ const ForecastShort: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchForecastWeather, { data, isSuccess }] =
+  const [fetchForecastWeather, { data, isSuccess, isLoading, isFetching }] =
     useLazyGetForecastWeatherQuery()
 
   useEffect(() => {
@@ -82,12 +83,22 @@ const ForecastShort: FC = () => {
         </div>
       </div>
       <div className={styles.main}>
-        {isSuccess &&
-          forecastData?.map((item) => (
+        {isLoading || isFetching ? (
+          <>
+            {[...Array(8)].map((_, idx) => (
+              <div className={styles.item} key={idx}>
+                <ForecastSmallCardSkeleton />
+              </div>
+            ))}
+          </>
+        ) : (
+          isSuccess &&
+          forecastData?.map((item: any) => (
             <div className={styles.item} key={item.dt}>
               <ForecastSmallCard weather={item} />
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   )

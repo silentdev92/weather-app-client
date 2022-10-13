@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { ForecastDetailCard } from '../../components/ForecastDetailCard'
+import ForecastDetailCardSkeleton from '../../components/ForecastDetailCard/Skeleton'
 import { useAppSelector } from '../../hooks/redux'
 import { usePageNavigation } from '../../hooks/usePageNavigation'
 import { selectCurrentLocation } from '../../store/location/selectors'
@@ -11,7 +12,7 @@ const Details: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchForecastWeather, { data, isSuccess }] =
+  const [fetchForecastWeather, { data, isSuccess, isLoading, isFetching }] =
     useLazyGetForecastWeatherQuery()
 
   useEffect(() => {
@@ -43,12 +44,22 @@ const Details: FC = () => {
         <div className={styles.title}>Next 5 Days</div>
       </div>
       <div className={styles.main}>
-        {isSuccess &&
+        {isLoading || isFetching ? (
+          <>
+            {[...Array(40)].map((_, idx) => (
+              <div key={idx}>
+                <ForecastDetailCardSkeleton />
+              </div>
+            ))}
+          </>
+        ) : (
+          isSuccess &&
           data?.list.map((item) => (
             <div key={item.dt}>
               <ForecastDetailCard weather={item} />
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   )

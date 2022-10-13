@@ -1,3 +1,5 @@
+@use '../../styles/_mixins' as mixin
+
 .root
     display: grid
     grid-template-columns: 3fr 2fr
@@ -5,10 +7,21 @@
     column-gap: 32px
     row-gap: 32px
     padding: 32px 0
+    @include mixin.desktop
+        grid-template-columns: 5fr 2fr
+    @include mixin.laptop
+        grid-template-columns: 1fr
+        grid-template-rows: repeat(6, auto)
     .optionsCard
         grid-column: span 2
+        @include mixin.laptop
+            grid-column: span 1
     .currentPrimaryCard
         grid-row: span 3
+        @include mixin.laptop
+            grid-row: span 1
     .forecastShort
         grid-column: span 2
         max-width: 100%
+        @include mixin.laptop
+            grid-column: span 1

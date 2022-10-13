@@ -1,4 +1,8 @@
+@use '../../styles/_mixins' as mixin
+
 .root
+    @include mixin.tablet
+        width: calc(100vw - 64px)
     .nav
         height: 36px
         display: flex

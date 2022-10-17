@@ -15,16 +15,18 @@ const MainLayout: FC = () => {
     if (!location) {
       navigateToWelcomePage()
     }
-    if (location?.name.toLowerCase() !== locationParam) {
+    if (location && location?.name.toLowerCase() !== locationParam) {
       navigateToHomePage()
     }
   }, [location])
 
   return (
     <>
-      <Helmet>
-        <title>{location?.name} - Weather App</title>
-      </Helmet>
+      {location && (
+        <Helmet>
+          <title>{location?.name} - Weather App</title>
+        </Helmet>
+      )}
       <div className={styles.root}>
         <div className={styles.container}>
           <Outlet />

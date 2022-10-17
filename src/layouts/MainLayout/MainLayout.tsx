@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Outlet, useParams } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/redux'
 import { usePageNavigation } from '../../hooks/usePageNavigation'
@@ -20,11 +21,16 @@ const MainLayout: FC = () => {
   }, [location])
 
   return (
-    <div className={styles.root}>
-      <div className={styles.container}>
-        <Outlet />
+    <>
+      <Helmet>
+        <title>{location?.name} - Weather App</title>
+      </Helmet>
+      <div className={styles.root}>
+        <div className={styles.container}>
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

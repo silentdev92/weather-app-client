@@ -29,9 +29,11 @@ const Welcome: FC = () => {
   }, [location])
 
   return (
-    <Card>
-      <LocationForm onSubmit={selectLocationHandler} />
-    </Card>
+    <div className={styles.root}>
+      <Card>
+        <LocationForm onSubmit={selectLocationHandler} />
+      </Card>
+    </div>
   )
 }
 

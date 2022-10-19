@@ -30,7 +30,7 @@ const ForecastDetailCard: FC<ForecastDetailCardProps> = ({ weather }) => {
 
   return (
     <div className={cx('root', display)} onClick={changeDisplay}>
-      <Card>
+      <Card active={display === 'detail'}>
         <div className={styles.main}>
           <span>{getFormattedDateTime(weather.dt)}</span>
           <div className={styles.right}>

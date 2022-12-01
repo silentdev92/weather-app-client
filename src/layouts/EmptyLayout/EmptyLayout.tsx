@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Outlet } from 'react-router-dom'
-import styles from './Emptylayout.module.sass'
+import styles from './EmptyLayout.module.sass'
 
 const EmptyLayout: FC = () => {
   return (

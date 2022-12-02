@@ -1,4 +1,11 @@
-import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FC,
+  MouseEvent,
+  useEffect,
+  useState,
+  FormEvent,
+} from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useLazyGetLocationQuery } from '../../store/location/api'
@@ -60,7 +67,8 @@ const LocationForm: FC<LocationFormProps> = ({ onSubmit }) => {
     dispatch(removeRecentLocation(id))
   }
 
-  const submitHandler = () => {
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault()
     if (selected) onSubmit(selected)
   }
 

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import classNames from 'classnames/bind'
 import styles from './ForecastShort.module.sass'
 import { ForecastSmallCard } from '../ForecastSmallCard'
@@ -9,7 +10,6 @@ import { selectUnits } from '../../store/weather/selectors'
 import moment from 'moment'
 import { ForecastWeatherData } from '../../store/weather/types'
 import { usePageNavigation } from '../../hooks/usePageNavigation'
-import ForecastSmallCardSkeleton from '../ForecastSmallCard/Skeleton'
 
 let cx = classNames.bind(styles)
 
@@ -25,8 +25,10 @@ const ForecastShort: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchForecastWeather, { data, isSuccess, isLoading, isFetching }] =
-    useLazyGetForecastWeatherQuery()
+  const [
+    fetchForecastWeather,
+    { data, isSuccess, isLoading, isFetching, isError },
+  ] = useLazyGetForecastWeatherQuery()
 
   useEffect(() => {
     if (location) {
@@ -45,6 +47,11 @@ const ForecastShort: FC = () => {
     })
     return result
   }, [forecastDay, data])
+
+  const show = useMemo(
+    () => isSuccess && !isLoading && !isFetching && !isError,
+    [isSuccess, isLoading, isFetching, isError]
+  )
 
   return (
     <div className={styles.root}>
@@ -83,22 +90,22 @@ const ForecastShort: FC = () => {
         </div>
       </div>
       <div className={styles.main}>
-        {isLoading || isFetching ? (
-          <>
-            {[...Array(8)].map((_, idx) => (
-              <div className={styles.item} key={idx}>
-                <ForecastSmallCardSkeleton />
-              </div>
-            ))}
-          </>
-        ) : (
-          isSuccess &&
-          forecastData?.map((item: any) => (
-            <div className={styles.item} key={item.dt}>
+        {forecastData?.map((item: any) => (
+          <div className={styles.item} key={item.dt}>
+            <CSSTransition
+              addEndListener={(node: HTMLElement, done: () => void) => {
+                node.addEventListener('transitionend', done, false)
+              }}
+              in={show}
+              timeout={300}
+              classNames="fade"
+              mountOnEnter
+              unmountOnExit
+            >
               <ForecastSmallCard weather={item} />
-            </div>
-          ))
-        )}
+            </CSSTransition>
+          </div>
+        ))}
       </div>
     </div>
   )

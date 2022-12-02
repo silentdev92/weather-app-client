@@ -1,8 +1,6 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
 import { CurrentPrimaryCard } from '../../components/CurrentPrimaryCard'
-import CurrentPrimaryCardSkeleton from '../../components/CurrentPrimaryCard/Skeleton'
 import { CurrentSecondaryCard } from '../../components/CurrentSecondaryCard'
-import CurrentSecondaryCardSkeleton from '../../components/CurrentSecondaryCard/Skeleton'
 import { ForecastShort } from '../../components/ForecastShort'
 import { OptionsCard } from '../../components/OptionsCard'
 import { getSpeedUnits } from '../../helpers/units'
@@ -16,8 +14,10 @@ const Home: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchCurrentWeather, { data, isSuccess, isLoading, isFetching }] =
-    useLazyGetCurrentWeatherQuery()
+  const [
+    fetchCurrentWeather,
+    { data, isSuccess, isLoading, isFetching, isError },
+  ] = useLazyGetCurrentWeatherQuery()
 
   useEffect(() => {
     if (location) {
@@ -25,55 +25,43 @@ const Home: FC = () => {
     }
   }, [location, units])
 
+  const show = useMemo(
+    () => isSuccess && !isLoading && !isFetching && !isError,
+    [isSuccess, isLoading, isFetching, isError]
+  )
+
   return (
     <div className={styles.root}>
       <div className={styles.optionsCard}>
         <OptionsCard />
       </div>
       <div className={styles.currentPrimaryCard}>
-        {isLoading || isFetching ? (
-          <CurrentPrimaryCardSkeleton />
-        ) : (
-          isSuccess && (
-            <CurrentPrimaryCard location={location!} weather={data!} />
-          )
-        )}
+        <CurrentPrimaryCard location={location!} weather={data!} show={show} />
       </div>
-      {isLoading || isFetching ? (
-        <>
-          {[...Array(3)].map((_, idx) => (
-            <div key={idx}>
-              <CurrentSecondaryCardSkeleton />
-            </div>
-          ))}
-        </>
-      ) : (
-        isSuccess && (
-          <>
-            <div>
-              <CurrentSecondaryCard
-                icon="umbrella"
-                title="RainFall"
-                value={(data?.rain ? data.rain['1h'] : '0') + ' mm'}
-              />
-            </div>
-            <div>
-              <CurrentSecondaryCard
-                icon="wind"
-                title="Wind"
-                value={data?.wind.speed + ' ' + getSpeedUnits(units)}
-              />
-            </div>
-            <div>
-              <CurrentSecondaryCard
-                icon="humidity"
-                title="Humidity"
-                value={data?.main.humidity + ' %'}
-              />
-            </div>
-          </>
-        )
-      )}
+      <div>
+        <CurrentSecondaryCard
+          icon="umbrella"
+          title="RainFall"
+          value={(data?.rain ? data.rain['1h'] : '0') + ' mm'}
+          show={show}
+        />
+      </div>
+      <div>
+        <CurrentSecondaryCard
+          icon="wind"
+          title="Wind"
+          value={data?.wind.speed + ' ' + getSpeedUnits(units)}
+          show={show}
+        />
+      </div>
+      <div>
+        <CurrentSecondaryCard
+          icon="humidity"
+          title="Humidity"
+          value={data?.main.humidity + ' %'}
+          show={show}
+        />
+      </div>
       <div className={styles.forecastShort}>
         <ForecastShort />
       </div>

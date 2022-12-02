@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import { ForecastDetailCard } from '../../components/ForecastDetailCard'
-import ForecastDetailCardSkeleton from '../../components/ForecastDetailCard/Skeleton'
 import { useAppSelector } from '../../hooks/redux'
 import { usePageNavigation } from '../../hooks/usePageNavigation'
 import { selectCurrentLocation } from '../../store/location/selectors'
@@ -12,8 +12,10 @@ const Details: FC = () => {
   const location = useAppSelector(selectCurrentLocation)
   const units = useAppSelector(selectUnits)
 
-  const [fetchForecastWeather, { data, isSuccess, isLoading, isFetching }] =
-    useLazyGetForecastWeatherQuery()
+  const [
+    fetchForecastWeather,
+    { data, isSuccess, isLoading, isFetching, isError },
+  ] = useLazyGetForecastWeatherQuery()
 
   useEffect(() => {
     if (location) {
@@ -22,6 +24,11 @@ const Details: FC = () => {
   }, [location, units])
 
   const { navigateToHomePage } = usePageNavigation()
+
+  const show = useMemo(
+    () => isSuccess && !isLoading && !isFetching && !isError,
+    [isSuccess, isLoading, isFetching, isError]
+  )
 
   return (
     <div className={styles.root}>
@@ -44,22 +51,22 @@ const Details: FC = () => {
         <div className={styles.title}>Next 5 Days</div>
       </div>
       <div className={styles.main}>
-        {isLoading || isFetching ? (
-          <>
-            {[...Array(40)].map((_, idx) => (
-              <div key={idx}>
-                <ForecastDetailCardSkeleton />
-              </div>
-            ))}
-          </>
-        ) : (
-          isSuccess &&
-          data?.list.map((item) => (
-            <div key={item.dt}>
+        {data?.list.map((item) => (
+          <div key={item.dt}>
+            <CSSTransition
+              addEndListener={(node: HTMLElement, done: () => void) => {
+                node.addEventListener('transitionend', done, false)
+              }}
+              in={show}
+              timeout={300}
+              classNames="fade"
+              mountOnEnter
+              unmountOnExit
+            >
               <ForecastDetailCard weather={item} />
-            </div>
-          ))
-        )}
+            </CSSTransition>
+          </div>
+        ))}
       </div>
     </div>
   )

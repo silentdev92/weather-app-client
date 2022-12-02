@@ -1,14 +1,12 @@
 # Weather Application
 
-A simple weather app built with React & Redux-toolkit
+A simple weather app built with React & Redux Toolkit
 
 ## Development stack
 
-- React + TypeScript
-- Redux-toolkit
-- React-redux
-- React-router-dom v6
-- React-helmet-async
-- Moment
-- Classnames
-- Sass
+- React, TypeScript
+- Redux Toolkit, React Redux
+- React Router DOM
+- React Transition Group
+- React Helmet Async
+- Moment, Classnames, Sass
